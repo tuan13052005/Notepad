@@ -1,0 +1,9 @@
+SELECT supplier, AVG(price)
+FROM order_data
+WHERE supplier = 'Oracle'
+GROUP BY supplier;
+
+SELECT supplier
+FROM order_data
+WHERE tax IS NULL
+GROUP BY supplier HAVING COUNT(tax IS NULL) >= 2;
