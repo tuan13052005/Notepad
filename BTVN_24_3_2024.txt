@@ -1,0 +1,49 @@
+CREATE TABLE khoa(
+	id INT PRIMARY KEY AUTO_INCREMENT,
+	makhoa VARCHAR(10),
+	tenkhoa VARCHAR(30),
+	dienthoai VARCHAR(10)
+);
+
+CREATE TABLE sinhvien (
+	id INT PRIMARY KEY AUTO_INCREMENT,
+	maSV INT,
+	hotenSV VARCHAR(30),
+	khoa_id INT,
+	namsinh INT,
+	quequan VARCHAR(30),
+	FOREIGN KEY (khoa_id) REFERENCES khoa(id)
+);
+
+INSERT INTO khoa (id,makhoa,tenkhoa,dienthoai)
+VALUES 
+	(1,'ST1','TOAN','0976599686'),
+	(2,'ST2','VAN','0979000575'),
+	(3,'ST3','ANH','0948733254'),
+	(4,'ST4','LY','0384754444'),
+	(5,'ST5','SINH','0966589286');
+	
+INSERT INTO sinhvien (id,maSV,hotenSV,khoa_id,namsinh,quequan)
+VALUES 
+	(1,231,'HOÀNG ANH',1,2005,'Ninh Bình'),
+	(2,232,'PHẠM TRUNG',4,2005,'Thái Bình'),
+	(3,233,'HOÀNG LAN',3,2005,'Kiên Giang'),
+	(4,234,'ĐINH KIÊN',4,2005,'An Giang'),
+	(5,235,'VŨ HOÀNG',5,2005,'Cà Mau'),
+	(6,236,'CỐ THU',2,2005,'Điện Biên'),
+	(7,237,'NGUYỄN HÙNG',1,2005,'Quảng Ninh');
+
+SELECT CONCAT(maSV,' | ',hotenSV,' | ',tenkhoa) 'Thông tin sinh viên'
+FROM sinhvien JOIN khoa
+ON sinhvien.khoa_id = khoa.id;
+
+SELECT CONCAT(maSV,' | ',hotenSV,' | ',tenkhoa) 'Sinh viên chưa được gán vào một khoa xác định'
+FROM sinhvien JOIN khoa
+ON sinhvien.khoa_id = khoa.id
+WHERE khoa_id IS NULL;
+
+SELECT CONCAT(maSV,' | ',hotenSV,' | ',YEAR(CURDATE())-namsinh) 'Thông tin sinh viên khoa Toán'
+FROM sinhvien JOIN khoa
+ON sinhvien.khoa_id = khoa.id
+WHERE khoa.id = 1;
+
