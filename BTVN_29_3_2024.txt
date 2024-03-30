@@ -1,0 +1,25 @@
+-- Tìm các giáo viên không tham gia đề tài
+SELECT *
+FROM giao_vien
+WHERE ma_gv NOT IN
+(
+	SELECT ma_gv
+	FROM tham_gia_de_tai
+	GROUP BY ma_gv
+)
+
+-- Tìm tất cả giáo viên là trưởng bộ môn dùng 2 cách là join và cách truy vấn lồng
+
+-- sử dụng join
+SELECT giao_vien.*
+FROM giao_vien JOIN bo_mon
+	ON giao_vien.id = bo_mon.truong_bo_mon;
+
+-- sử dụng truy vấn lồng
+SELECT *
+FROM giao_vien
+WHERE id IN
+(
+	SELECT truong_bo_mon
+	FROM bo_mon
+)
